@@ -1,16 +1,18 @@
 language: python
 
-python:
+python: 
   - "3.6"
-  - "3.7"
 
-env:
-  - DJANGO_VERSION=2.1.2
-  - DJANGO_REST_FRAMEWORK=3.9.0
+git:
+  depth: 1
 
-install: 
+install:
   - pip install -r requirements.txt
-  - pip install .
 
-script: 
-  - pytest
+env: 
+  - TRAVIS_SECURE_ENV_VARS=true
+
+script:
+  - python manage.py makemigrations
+  - python manage.py migrate
+  - python manage.py test backend
